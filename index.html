@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10101a">
+  <meta name="description" content="PrismaCam Studio — caméra créative avec filtres, photos et vidéos.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>PrismaCam Studio</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="PrismaCam Studio accueil"><span class="brand-mark">✦</span> PrismaCam <span class="muted">STUDIO</span></a>
+    <span class="live-pill"><span></span> STUDIO CRÉATIF</span>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow">VOTRE MONDE, VOTRE FILTRE</p>
+      <h1>La réalité, en <span>plus magique.</span></h1>
+      <p class="sub">Capturez l'instant. Réinventez-le.</p>
+    </section>
+
+    <section class="studio-grid">
+      <div class="camera-card">
+        <div class="camera-head">
+          <div><span class="dot"></span><strong id="cameraStatus">Caméra prête à démarrer</strong></div>
+          <button id="switchCamera" class="icon-btn" title="Changer de caméra" aria-label="Changer de caméra">↻</button>
+        </div>
+        <div class="viewfinder" id="viewfinder">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="effectCanvas"></canvas>
+          <div class="view-overlay">
+            <span class="corner tl"></span><span class="corner tr"></span>
+            <span class="corner bl"></span><span class="corner br"></span>
+            <div class="view-label">PRISMACAM <span>◉</span></div>
+          </div>
+          <div id="startPrompt" class="start-prompt">
+            <div class="camera-icon">◎</div>
+            <h2>Entrez dans le studio</h2>
+            <p>Autorisez la caméra pour voir votre image en direct.</p>
+            <button id="startCamera" class="primary-btn">Activer la caméra <span>→</span></button>
+          </div>
+          <div id="countdown" class="countdown" hidden>3</div>
+        </div>
+
+        <div class="filter-area">
+          <div class="section-label"><span>01 / AMBIANCE</span><span id="filterName">Original</span></div>
+          <div class="filters" role="group" aria-label="Filtres">
+            <button class="filter active" data-filter="original"><span class="filter-preview original">◉</span><span>Original</span></button>
+            <button class="filter" data-filter="dream"><span class="filter-preview dream">✧</span><span>Rêve</span></button>
+            <button class="filter" data-filter="neon"><span class="filter-preview neon">ϟ</span><span>Néon</span></button>
+            <button class="filter" data-filter="sunset"><span class="filter-preview sunset">☼</span><span>Sunset</span></button>
+            <button class="filter" data-filter="mono"><span class="filter-preview mono">◐</span><span>Mono</span></button>
+            <button class="filter" data-filter="vintage"><span class="filter-preview vintage">✺</span><span>Vintage</span></button>
+          </div>
+        </div>
+
+        <div class="capture-bar">
+          <button id="galleryBtn" class="secondary-btn"><span>▧</span> Galerie</button>
+          <button id="captureBtn" class="shutter" aria-label="Prendre une photo"><span></span></button>
+          <button id="recordBtn" class="secondary-btn record"><span class="record-dot"></span> <span id="recordLabel">Vidéo</span></button>
+        </div>
+        <p class="hint">Photo : appuyez sur le cercle · Vidéo : démarrez puis arrêtez l’enregistrement</p>
+        <input id="fileInput" type="file" accept="image/*,video/*" hidden>
+      </div>
+
+      <aside class="tools-column">
+        <section class="tool-card">
+          <div class="section-label"><span>02 / EFFETS EN DIRECT</span><span class="sparkle">✦</span></div>
+          <button class="effect-row active" data-effect="none"><span class="effect-icon">◉</span><span><strong>Aucun effet</strong><small>Image naturelle</small></span><span class="check">✓</span></button>
+          <button class="effect-row" data-effect="sparkles"><span class="effect-icon">✧</span><span><strong>Poussière d’étoiles</strong><small>Des étincelles flottantes</small></span><span class="check">✓</span></button>
+          <button class="effect-row" data-effect="hearts"><span class="effect-icon">♡</span><span><strong>Pluie de cœurs</strong><small>Une touche romantique</small></span><span class="check">✓</span></button>
+          <button class="effect-row" data-effect="scan"><span class="effect-icon">⌁</span><span><strong>Scanner cyber</strong><small>Ambiance futuriste</small></span><span class="check">✓</span></button>
+        </section>
+
+        <section class="tool-card adjust-card">
+          <div class="section-label"><span>03 / AJUSTEMENTS</span><span class="sparkle">☷</span></div>
+          <label class="slider-label" for="brightness">Luminosité <output id="brightnessOut">100%</output></label>
+          <input id="brightness" type="range" min="50" max="150" value="100">
+          <label class="slider-label" for="saturation">Saturation <output id="saturationOut">100%</output></label>
+          <input id="saturation" type="range" min="0" max="200" value="100">
+          <label class="slider-label" for="contrast">Contraste <output id="contrastOut">100%</output></label>
+          <input id="contrast" type="range" min="50" max="160" value="100">
+          <button id="resetAdjustments" class="text-btn">↺ Réinitialiser les réglages</button>
+        </section>
+
+        <section class="tip-card">
+          <span class="tip-icon">✦</span>
+          <div><strong>Astuce créative</strong><p>Essayez le filtre Néon avec le scanner cyber pour un look venu du futur.</p></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="gallery-section" id="gallerySection">
+      <div class="gallery-heading"><div><p class="eyebrow">VOS CRÉATIONS</p><h2>Le mini-laboratoire</h2></div><span id="mediaCount" class="count-badge">0 création</span></div>
+      <div id="gallery" class="gallery-grid">
+        <div id="emptyGallery" class="empty-gallery"><span>▧</span><strong>Votre galerie est encore vide</strong><p>Vos photos et vidéos apparaîtront ici.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>✦ PrismaCam Studio</span><span>Créé pour voir le monde autrement.</span><button id="installBtn" hidden>Installer l’application</button></footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

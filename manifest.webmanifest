@@ -1,0 +1,19 @@
+{
+  "name": "PrismaCam Studio",
+  "short_name": "PrismaCam",
+  "description": "Caméra mobile avec filtres de couleur en direct.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c0c13",
+  "theme_color": "#10101a",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
